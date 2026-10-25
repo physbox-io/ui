@@ -168,7 +168,7 @@ function newUid(): string {
  * The cutters in the drawer, edited the same way in every app.
  *
  * Ported from Etch's tool library dialog when the rack became shared. Retiring
- * a bit is the "Have it" box rather than a delete, because a document cut with
+ * a bit is unticking "Enable" rather than a delete, because a document cut with
  * it last month still names it: it stays listed, dimmed, and no app offers it
  * for a new job.
  */
@@ -407,7 +407,7 @@ export function ToolRackModal<T extends RackToolLike>({
                         title={
                           retired
                             ? `T${tool.toolNumber} is retired: still listed, not offered for new jobs`
-                            : `T${tool.toolNumber} is in the drawer. Untick to retire it without deleting it`
+                            : `T${tool.toolNumber} is enabled and offered for new jobs. Untick to retire it without deleting it`
                         }
                         onClick={(e) => e.stopPropagation()}
                       >
@@ -417,7 +417,7 @@ export function ToolRackModal<T extends RackToolLike>({
                           onChange={(e) => updateTool(tool.uid, { available: e.target.checked })}
                           className="accent-amber-500 cursor-pointer w-3 h-3"
                         />
-                        <span>Have it</span>
+                        <span>Enable</span>
                       </label>
                       {tools.length > 1 && (
                         <button
@@ -450,7 +450,7 @@ export function ToolRackModal<T extends RackToolLike>({
                             and will fall back to an uncatalogued T{tool.toolNumber}.
                           </>
                         )}
-                        {!retired && ' Untick "Have it" instead to keep it listed but stop offering it.'}
+                        {!retired && ' Untick "Enable" instead to keep it listed but stop offering it.'}
                       </div>
                       <div className="flex gap-1.5">
                         <button

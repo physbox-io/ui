@@ -37,7 +37,7 @@ describe('ToolRackModal', () => {
     expect(html).toContain('Old drill');
     expect(html).toContain('retired');
     expect(html).toContain('opacity-50');
-    expect(html.match(/Have it/g)).toHaveLength(3);
+    expect(html.match(/>Enable</g)).toHaveLength(3);
     expect(html).toContain('Tool rack T1–T7');
   });
 
