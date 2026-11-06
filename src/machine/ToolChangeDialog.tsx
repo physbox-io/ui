@@ -192,7 +192,7 @@ export const ToolChangeDialog: React.FC<ToolChangeDialogProps> = ({
             <p className="text-[11px] leading-relaxed text-slate-500 dark:text-slate-400">
               {laser
                 ? 'The beam is off. Change what needs changing, then set focus below.'
-                : 'The spindle is stopped and the tool is lifted clear. Let it stop turning before you reach in.'}
+                : 'Tool lifted clear. Make sure the spindle has stopped before you reach in.'}
             </p>
           </div>
 
