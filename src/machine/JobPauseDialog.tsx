@@ -191,3 +191,45 @@ export function jobPauseKind(status: string): JobPauseKind | null {
   if (status === 'PAUSED_PARKED') return 'parked';
   return null;
 }
+
+export interface JobWaitingButtonProps {
+  /** A tool change, or one of the other stops. */
+  kind: 'tool' | JobPauseKind;
+  /** At a tool change: Z still describes the old bit. */
+  needsZero?: boolean;
+  /** Reopens the dialog. */
+  onOpen: () => void;
+}
+
+/**
+ * The way back to a paused job's dialog once it has been hidden: one button,
+ * the same in every app's status bar, loud enough to see from across the
+ * workshop. It says what is waiting, and opening it puts Resume and the
+ * re-zero back in front of the operator.
+ */
+export const JobWaitingButton: React.FC<JobWaitingButtonProps> = ({ kind, needsZero = false, onOpen }) => {
+  const label =
+    kind === 'tool'
+      ? needsZero
+        ? 'Tool change: zero Z'
+        : 'Tool change: resume'
+      : kind === 'material'
+        ? 'Material change: resume'
+        : kind === 'parked'
+          ? 'Parked: resume'
+          : 'Paused: resume';
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      title="Open the dialog to carry on with the job"
+      className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-amber-500 hover:bg-amber-600 text-slate-950 text-[11px] font-bold shadow cursor-pointer"
+    >
+      <span className="relative flex w-2 h-2">
+        <span className="absolute inline-flex w-full h-full rounded-full bg-white opacity-75 animate-ping" />
+        <span className="relative inline-flex w-2 h-2 rounded-full bg-white" />
+      </span>
+      {label}
+    </button>
+  );
+};

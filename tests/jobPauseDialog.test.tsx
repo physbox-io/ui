@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { JobPauseDialog, jobPauseKind, type JobPauseDialogProps } from '../src/machine/JobPauseDialog';
+import { JobPauseDialog, JobWaitingButton, jobPauseKind, type JobPauseDialogProps, type JobWaitingButtonProps } from '../src/machine/JobPauseDialog';
+import { createJobPauseVisibility, jobStopKey } from '../src/machine/jobPauseVisibility';
 
 const noop = () => {};
 const base: JobPauseDialogProps = {
@@ -54,5 +55,28 @@ describe('JobPauseDialog', () => {
     expect(jobPauseKind('PAUSED_PARKED')).toBe('parked');
     expect(jobPauseKind('PAUSED_TOOL')).toBeNull();
     expect(jobPauseKind('RUNNING')).toBeNull();
+  });
+});
+
+describe('JobWaitingButton', () => {
+  const html = (p: Partial<JobWaitingButtonProps>) =>
+    renderToStaticMarkup(<JobWaitingButton kind="tool" onOpen={() => {}} {...p} />);
+  it('says what is waiting', () => {
+    expect(html({ needsZero: true })).toContain('Tool change: zero Z');
+    expect(html({})).toContain('Tool change: resume');
+    expect(html({ kind: 'hold' })).toContain('Paused: resume');
+    expect(html({ kind: 'material' })).toContain('Material change');
+  });
+});
+
+describe('createJobPauseVisibility', () => {
+  it('hides one stop, and a new stop is not hidden', () => {
+    const v = createJobPauseVisibility();
+    const tool = jobStopKey('PAUSED_TOOL', 990, 'Fit T2');
+    v.hide(tool);
+    expect(v.hiddenKey()).toBe(tool);
+    expect(jobStopKey('PAUSED_TOOL', 2100, 'Fit T3')).not.toBe(tool);
+    v.show();
+    expect(v.hiddenKey()).toBeNull();
   });
 });
