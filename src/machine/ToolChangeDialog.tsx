@@ -147,7 +147,7 @@ export const ToolChangeDialog: React.FC<ToolChangeDialogProps> = ({
         : { ok: false, text: 'Clip the lead on and touch the bit to the plate or work once, to prove the circuit.' };
 
   return (
-    <div className="fixed inset-0 z-[70] bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[100000] bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
       <div
         role="dialog"
         aria-modal="true"

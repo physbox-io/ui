@@ -80,3 +80,9 @@ describe('createJobPauseVisibility', () => {
     expect(v.hiddenKey()).toBeNull();
   });
 });
+
+describe('stacking', () => {
+  it('puts the machine dialogs over every app window', () => {
+    expect(render()).toContain('z-[100000]');
+  });
+});

@@ -55,6 +55,10 @@ const TITLE: Record<JobPauseKind, string> = {
  * describing a bit change at a plain program stop. The tool change has its own
  * procedure and its own dialog (`ToolChangeDialog`); this is everything else,
  * in the same frame, so a paused job looks the same whichever app sent it.
+ *
+ * These machine dialogs sit at z-[100000], over every app window (Volt's mill
+ * dialog is z-[99999]): a stop that opens behind the dialog the job was started
+ * from is a stop nobody sees. Only an app's floating E-Stop goes above them.
  */
 export const JobPauseDialog: React.FC<JobPauseDialogProps> = ({
   machine,
@@ -84,7 +88,7 @@ export const JobPauseDialog: React.FC<JobPauseDialogProps> = ({
   const showJog = jog && kind !== 'hold';
 
   return (
-    <div className="fixed inset-0 z-[70] bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[100000] bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
       <div
         role="dialog"
         aria-modal="true"
