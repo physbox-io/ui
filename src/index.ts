@@ -18,3 +18,5 @@ export * from './machine/SafetyAck';
 export * from './machine/TeknoBoxPicker';
 export * from './account/AccountMenu';
 export * from './account/useAccountSession';
+export * from './machine/stopControl';
+export * from './machine/FloatingStop';

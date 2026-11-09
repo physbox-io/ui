@@ -6,3 +6,4 @@ export * from './suite/suiteCookie';
 export * from './suite/suiteSession';
 export * from './suite/suiteTheme';
 export * from './machine/touchPlate';
+export * from './machine/stopControl';
