@@ -32,12 +32,20 @@ npm install @physbox-io/ui
   reject an out-of-range or invalid keystroke outright). Unified on Etch's
   clamp-on-blur behavior everywhere; Mesh's `integer` option (parseInt +
   round instead of parseFloat) is preserved as a prop.
+- `@physbox-io/ui/cloud` — cloud autosave's engine (`createCloudAutosave`), and
+  `CloudSaveStatus`, the badge that shows what it is doing. Each app makes its
+  one engine in its own `utils/cloudDocuments.ts`, handing over its API client
+  and storage prefix (`etch`, `circuit`, `physics` — the keys each app already
+  had). Mesh adds its blob store through `toCloud` / `fromCloud` /
+  `externalizableChars` / `recoverable`. A document nobody has edited since it
+  was opened or saved is never written: the app says what counts through
+  `connectDocument`.
 
 ## Roadmap
 
 1. Design tokens — done.
 2. Duplicated primitives, migrated in one at a time as each app adopts this
-   package: `NumberInput` — done. Still to do: `CloudSaveStatus`, tooltip
+   package: `NumberInput`, `CloudSaveStatus` — done. Still to do: tooltip
    components (`InfoTooltip`/`InfoTip`), `NoteCardOverlay`, `GuestListModal`,
    `UserProfileButton`, `TeknoBoxPicker`.
 3. Structural patterns (settings panel vs. modal, job-pause banner vs. modal)

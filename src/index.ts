@@ -21,3 +21,5 @@ export * from './account/useAccountSession';
 export * from './machine/stopControl';
 export * from './machine/FloatingStop';
 export * from './machine/RemoteJobChip';
+export * from './cloud/cloudAutosave';
+export * from './cloud/CloudSaveStatus';
